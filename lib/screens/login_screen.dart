@@ -18,7 +18,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final LoginController controller = LoginController();
-  
+
+  late ReactionDisposer disposer;
 
   @override
   void initState() {
@@ -43,7 +44,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
 //3.reacão when
 //só faz uma vez e 'apaga'
-    when((_) => controller.loggedIn, () {
+
+    /*disposer = autorun((_) {});
+    disposer();*/
+    disposer = when((_) => controller.loggedIn, () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const ListScreen()),
       );
@@ -140,5 +144,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    dispose();
   }
 }

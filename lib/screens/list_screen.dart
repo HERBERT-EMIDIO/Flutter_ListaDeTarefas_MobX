@@ -61,34 +61,48 @@ class _ListScreenState extends State<ListScreen> {
                       children: <Widget>[
                         Observer(builder: (_) {
                           return CustomTextField(
+                            controller: controller.addTodoTextControll,
                             hint: 'Tarefa',
                             onChanged: controller.setNewTodoTitle,
                             suffix: CustomIconButton(
                               radius: 32,
                               iconData: Icons.add,
-                              onTap: controller.isFormValid ? () {} : null,
+                              onTap: controller.addTodoPressed,
                             ),
                           );
                         }),
                         const SizedBox(
                           height: 8,
                         ),
-                        Expanded(
-                          child: ListView.separated(
-                            itemCount: 10,
-                            itemBuilder: (_, index) {
-                              return ListTile(
-                                title: Text(
-                                  'Item $index',
-                                ),
-                                onTap: () {},
-                              );
-                            },
-                            separatorBuilder: (_, __) {
-                              return const Divider();
-                            },
-                          ),
-                        ),
+                        Expanded(child: Observer(
+                          builder: (_) {
+                            return ListView.separated(
+                              itemCount: controller.todoList.length,
+                              itemBuilder: (_, index) {
+                                final todo = controller.todoList[index];
+
+                                return Observer(builder: (_) {
+                                  return ListTile(
+                                    title: Text(
+                                      todo.title,
+                                      style: TextStyle(
+                                          color: todo.done
+                                              ? Colors.grey[500]
+                                              : Colors.black,
+                                          decoration: todo.done
+                                              ? TextDecoration.lineThrough
+                                              : null),
+                                    ),
+                                    onTap: todo.ToggleDone,
+                                  );
+                                });
+                              },
+                              separatorBuilder: (_, __) {
+                                return const Divider();
+                              },
+                            );
+                          },
+                        )),
                       ],
                     ),
                   ),

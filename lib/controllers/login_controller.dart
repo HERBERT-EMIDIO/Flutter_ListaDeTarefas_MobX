@@ -6,8 +6,6 @@ part 'login_controller.g.dart';
 class LoginController = LoginControllerBase with _$LoginController;
 
 abstract class LoginControllerBase with Store {
-
-  
   /*LoginControllerBase() {
     autorun((_) {
       //print('Email: $email');
@@ -63,7 +61,7 @@ abstract class LoginControllerBase with Store {
   Future<void> login() async {
     loading = true;
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     loading = false;
     loggedIn = true;
